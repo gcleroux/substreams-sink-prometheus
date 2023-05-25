@@ -11,9 +11,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+
       - name: Build the Docker image
-        run: docker build -t ${{secrets.DOCKER_USER}}/test-substreams-prometheus-sink .
+        run: docker build -t ${{secrets.DOCKER_USER}}/test-substreams-prometheus-sink:v${{ steps.package-version.outputs.current-version}} .
+
       - name: DockerHub login
         run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
+
       - name: Push image to dockerHub
-        run: docker push ${{secrets.DOCKER_USER}}/test-substreams-prometheus-sink
+        run: docker push ${{secrets.DOCKER_USER}}/test-substreams-prometheus-sink:v${{ steps.package-version.outputs.current-version}}
