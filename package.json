@@ -1,6 +1,6 @@
 {
     "name": "substreams-sink-prometheus",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "Substreams Prometheus sink module",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
